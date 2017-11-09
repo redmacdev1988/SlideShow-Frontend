@@ -1,0 +1,141 @@
+body {
+  font-family: helvetica, arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+nav {
+  display: block;
+  background: #eee;
+  margin: 1em 0;
+  padding: .5em;
+}
+nav a {
+  color: #369;
+}
+nav li {
+  list-style: square;
+  line-height: 1.5em;
+}
+nav li:last-child {
+  margin-top: 2em;
+  list-style: none;
+  font-weight: bold;
+}
+nav li:last-child a {
+  background: #369;
+  display: inline-block;
+  margin-left: -1em;
+  padding: 2px 5px;
+  color: #fff;
+  text-decoration: none;
+}
+
+body {
+   background-position: center center;
+   background-repeat: no-repeat;
+   background-attachment: fixed;
+   background-size: cover;
+   background-color: #464646;
+}
+
+.button {
+     background-position: center center;
+     background-repeat: no-repeat;
+     padding: 20px;
+     position: fixed;
+ }
+
+.button.next {
+  background-image: url("images/next.png");
+  top: 50%;
+  right: 0%;
+}
+
+.button.prev {
+  background-image: url("images/prev.png");
+  top: 50%;
+  left: 0%;
+}
+
+#loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+#imageDescription {
+  top: -200px;
+  left: 120px;
+  position: absolute;
+  width: 80%;
+  padding: 20px;
+  border-radius: 8px;
+  color: black;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.box {
+
+}
+
+.ribbon {
+  position: absolute;
+  left: -5px; top: -5px;
+  z-index: 1;
+  overflow: hidden;
+  width: 75px; height: 75px;
+  text-align: right;
+}
+.ribbon span {
+  font-size: 12px;
+  font-weight: bold;
+  color: #FFF;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 20px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  width: 100px;
+  display: block;
+  background: #79A70A;
+  background: linear-gradient(#9BC90D 0%, #79A70A 100%);
+  box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+  position: absolute;
+  top: 19px; left: -21px;
+}
+.ribbon span::before {
+  content: "";
+  position: absolute; left: 0px; top: 100%;
+  z-index: -1;
+  border-left: 3px solid #79A70A;
+  border-right: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #79A70A;
+}
+.ribbon span::after {
+  content: "";
+  position: absolute; right: 0px; top: 100%;
+  z-index: -1;
+  border-left: 3px solid transparent;
+  border-right: 3px solid #79A70A;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #79A70A;
+}

@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carousel - simplest version</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+  <script type="text/javascript" src="ListNode.js"></script>
+  <script type="text/javascript" src="TimeLiner.js"></script>
+  <script type="text/javascript" src="CircularList.js"></script>
+  <script type="text/javascript" src="hashtable.js"></script>
+
+  <script>
+    var gDownloadLocations = [];
+    var gTimeline = new TimeLiner();
+
+    //var gDescriptionData = [];
+    var gDescriptionDataHashTable = HashTable.CreateObject(31);
+
+  </script>
+
+  <script type="text/javascript" src="preloader.js"></script>
+  <script type="text/javascript" src="description.js"></script>
+
+</head>
+
+<body class="box" onload="beforeDOMisLoaded(gDownloadLocations, gTimeline, gDescriptionDataHashTable)">
+  <div class="ribbon" onclick="toggleImageDescription(gTimeline, gDescriptionDataHashTable, 'imageDescription')"><span>about</span></div>
+  <div id ="imageDescription"></div>
+  <a href="#" class="button next"></a>
+  <a href="#" class="button prev"></a>
+</body>
+</html>

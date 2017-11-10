@@ -57,6 +57,7 @@ function createTextArea(index) {
 }
 
 function createUpdateBtn(index) {
+
     var updateBtnAttributes = [];
     updateBtnAttributes.push({
       name : "class",
@@ -72,22 +73,48 @@ function createUpdateBtn(index) {
     });
 
     var updateButton = createElement("button", updateBtnAttributes, "update");
+
     updateButton.addEventListener ("click", function() {
+
+      console.log("update button clicked!");
+
       var newDescription = document.getElementById(this.getAttribute("id")).value;
 
-      var requestURL = API_URL + this.getAttribute("id")
-                  + "/description/" + newDescription;
+      var requestURL = API_URL + this.getAttribute("id");
+      console.log("requestURL: ");
+      console.log(requestURL);
+
+      var formData = new FormData();
+      formData.append('myKey', 'Ha dooooo ken!');
+
+      /*
+      method:'POST',
+      headers: new Headers(),
+      body: formData,
+      mode: 'no-cors'
+      */
 
       var request = new Request(requestURL, {
-        method: 'PUT',
+        method: 'POST',
+        mode: "no-cors",
+        body: formData,
         headers: new Headers()
+
       });
+
+      console.log("---request---");
+      console.dir(request);
+      console.log("---------");
+
+
       fetch(request)
         .then((resp) => resp.json()) // Transform the data into json
         .then(function(data) {
           console.log("description data received from " + requestURL);
           console.log(data);
         });
+
+
     });
     return updateButton;
 }

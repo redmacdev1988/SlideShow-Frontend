@@ -56,6 +56,41 @@ function createTextArea(index) {
     return createElement("textarea", textAreaAttributes, gDescriptionData[index].description);
 }
 
+function createDeleteBtn(index) {
+  var deleteBtnAttributes = [];
+  deleteBtnAttributes.push({
+    name : "class",
+    value : "delete"
+  });
+  deleteBtnAttributes.push({
+    name : "id",
+    value : gDescriptionData[index].name
+  });
+
+  var deleteButton = createElement("button", deleteBtnAttributes, "delete");
+
+  deleteButton.addEventListener ("click", function() {
+      console.log("DELETE button clicked!");
+      var requestURL = API_URL + this.getAttribute("id");
+      var request = new Request(requestURL, {
+        method: 'DELETE',
+        mode: 'cors',
+        body: "pictorialId="+gDescriptionData[index].name, // 2 mb limit
+        redirect: 'follow',
+        headers: new Headers({
+          'Content-Type': 'application/x-www-form-urlencoded'
+        })
+      });
+
+      fetch(request).then(function(result) {
+        console.log("--- result ----");
+        console.log(result);
+      });
+
+  }); // addEventListener
+
+}
+
 function createUpdateBtn(index) {
 
     var updateBtnAttributes = [];
@@ -97,13 +132,9 @@ function createUpdateBtn(index) {
         	})
         });
 
-      // Now use it!
       fetch(request).then(function(result) {
-        /* handle response */
-
         console.log("--- result ----");
         console.log(result);
-
       });
 
     });
@@ -120,7 +151,8 @@ function createSection(dataIndex) {
     return createElement( "div",
       sectionAttributes,
       undefined,
-      [createNameLabel(dataIndex), createFileNameLabel(dataIndex), createTextArea(dataIndex), createUpdateBtn(dataIndex)]);
+      [createNameLabel(dataIndex), createFileNameLabel(dataIndex),
+        createTextArea(dataIndex), createUpdateBtn(dataIndex), createDeleteBtn(dataIndex)]);
 }
 
 

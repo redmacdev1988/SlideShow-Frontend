@@ -87,42 +87,24 @@ function createUpdateBtn(index) {
       var formData = new FormData();
       formData.append('myKey', 'Ha dooooo ken!');
 
-/*
-      var request = new Request(requestURL, {
-        method: 'POST',
-        mode: "no-cors",
-        body: formData,
-        headers: new Headers()
-
-      });
-
-      console.log("---request---");
-      console.dir(request);
-      console.log("---------");
-
-
-      fetch(request)
-        .then((resp) => resp.json()) // Transform the data into json
-        .then(function(data) {
-          console.log("description data received from " + requestURL);
-          console.log(data);
-        });
-        */
-
         var request = new Request(requestURL, {
         	method: 'POST',
         	mode: 'cors',
-          body: formData,
+          body: "description="+newDescription, // 2 mb limit
         	redirect: 'follow',
         	headers: new Headers({
-        		'Content-Type': 'text/plain'
+        		'Content-Type': 'application/x-www-form-urlencoded'
         	})
         });
 
-        // Now use it!
-        fetch(request).then(function() { /* handle response */ });
+      // Now use it!
+      fetch(request).then(function(result) {
+        /* handle response */
 
+        console.log("--- result ----");
+        console.log(result);
 
+      });
 
     });
     return updateButton;

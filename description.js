@@ -9,7 +9,6 @@ var visible = false;
 
 function toggleImageDescription(timeline, descriptionHashTable, descriptionElementID) {
 
-    // http://345.34.35.345/haha.jpg
     var url = timeline.currentFrame().data;
     var urlArray = url.split('/');
     var fileNameWithExt = urlArray[urlArray.length-1]; // beijing.jpg

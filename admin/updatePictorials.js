@@ -87,13 +87,7 @@ function createUpdateBtn(index) {
       var formData = new FormData();
       formData.append('myKey', 'Ha dooooo ken!');
 
-      /*
-      method:'POST',
-      headers: new Headers(),
-      body: formData,
-      mode: 'no-cors'
-      */
-
+/*
       var request = new Request(requestURL, {
         method: 'POST',
         mode: "no-cors",
@@ -113,6 +107,21 @@ function createUpdateBtn(index) {
           console.log("description data received from " + requestURL);
           console.log(data);
         });
+        */
+
+        var request = new Request(requestURL, {
+        	method: 'POST',
+        	mode: 'cors',
+          body: formData,
+        	redirect: 'follow',
+        	headers: new Headers({
+        		'Content-Type': 'text/plain'
+        	})
+        });
+
+        // Now use it!
+        fetch(request).then(function() { /* handle response */ });
+
 
 
     });

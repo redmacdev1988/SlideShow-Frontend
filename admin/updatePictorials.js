@@ -85,10 +85,12 @@ function createDeleteBtn(index) {
       fetch(request).then(function(result) {
         console.log("--- result ----");
         console.log(result);
-      });
+        document.location.reload(true); // refresh page
 
+      });
   }); // addEventListener
 
+  return deleteButton;
 }
 
 function createUpdateBtn(index) {

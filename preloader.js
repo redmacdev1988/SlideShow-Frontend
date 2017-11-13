@@ -12,23 +12,25 @@ function is_cached(src) {
 
 
 function loadImage(timeline) {
-  var img = new Image(), url = timeline.currentFrame().data;
-  img.src = url;
-  console.log("loadImage - image source--");
-  console.log(img.src);
+    var img = new Image(), url = timeline.currentFrame().data;
 
-  img.onload = function() {
-      var body = document.getElementsByTagName(BODY_CLASS)[0];
-      body.style.backgroundImage = "url(" + url + ")";
+    console.log("loadImage - image source--");
+    console.log(img.src);
 
-      setTimeout( // remove loader
-      function() {
-          var loader = document.getElementById(LOADER_ID);
-          if(loader)
-            body.removeChild(loader);
-        }, 200);
+    img.onload = function() {
+        var body = document.getElementsByTagName(BODY_CLASS)[0];
+        body.style.backgroundImage = "url(" + url + ")";
+
+        setTimeout( // remove loader
+            function() {
+                var loader = document.getElementById(LOADER_ID);
+                if(loader)
+                body.removeChild(loader);
+            }, 200);
       };
-}
+      img.src = url;
+
+  }
 
 function navigate(direction, timeline) {
   if (direction > 0) timeline.nextFrame();
@@ -84,6 +86,8 @@ function beforeDOMisLoaded (downloadLocations, timeline, descHashTable) {
   fetch("http://128.199.83.231/pictorials")
     .then((resp) => resp.json()) // Transform the data into json
     .then(function(data) {
+
+      console.log(data);
 
       setupHashTable(descHashTable, data);
       setupDownloadLocations(downloadLocations, data);

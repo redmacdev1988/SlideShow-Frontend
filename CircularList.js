@@ -167,30 +167,3 @@ function CircularList() {
 
 
 }
-
-var c = new CircularList();
-c.remove("hohoho");
-
-c.insert("ricky");
-c.insert("david");
-c.insert("evan");
-c.insert("Shirly");
-c.insert("Ivan");
-c.print();
-
-c.remove("ricky");
-c.print();
-c.remove("Ivan");
-c.print();
-c.remove("evan");
-c.print();
-c.remove("david");
-c.remove("Shirly");
-c.print();
-
-/*
-c.insert("david");
-c.print();
-c.remove("ricky");
-c.print();
-*/

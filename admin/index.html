@@ -8,10 +8,7 @@
 
   <script type="text/javascript" src="updatePictorials.js" ></script>
 
-
   <body>
-
-
     <form id="frmUploader"
           enctype="multipart/form-data"
           action="http://128.199.83.231/api/Upload/"
@@ -21,101 +18,16 @@
       <input type="submit" name="submit" id="btnSubmit" value="Upload"/>
     </form>
 
-
-<!--
-  <input type="file" name="imgUploader" id="imgUploader" />
-  <button name="submit" id="btnSubmit" onclick="uploadImage()">upload image</button>
--->
-
-  <section id="createName">
-  <h1>Create an Image</h1>
-
-  <div class="createImageRow">
-    <b>image name</b>
-    <input type="text" id="namePictorial">
-  </div>
-
-  <div class="createImageRow">
-    <b>file name</b>
-    <input type="text" id="fileNamePictorial">
-  </div>
-
-  <div class="createImageRow">
-    <b>Description</b>
-    <textarea id="descriptionPictorial"></textarea>
-  </div>
-
-  <button onclick="post('http://128.199.83.231/pictorials', 'POST')">create</button>
-
-  </section>
-
     <script>
-
-    function uploadImage() {
-
-        console.log("upload image button clicked");
-        var image = document.getElementById("imgUploader").files[0];
-        var formData = new FormData();
-        formData.append('imgUploader', image);
-
-        fetch('http://128.199.83.231/api/Upload', {
-            method:'POST',
-            headers: new Headers(),
-            body: formData,
-            mode: 'no-cors'
-        }).then(function(response){
-          console.log("response is");
-            console.log(response);
-        }).catch(function(err){
-            console.log("error");
-            console.log(err);
-        });
-
-    }
-
-
-    // USE THIS POST FUNCTION to CREATE
     function post(path, httpVerb) {
-
-      var namePictorial = document.getElementById('namePictorial').value;
-      var fileNamePictorial = document.getElementById('fileNamePictorial').value;
-      var descriptionPictorial = document.getElementById('descriptionPictorial').value;
-
-      console.log(namePictorial);
-      console.log(fileNamePictorial);
-      console.log(descriptionPictorial);
-
       httpVerb = httpVerb || "post"; // Set method to post by default if not specified.
-      console.log(httpVerb);
-
       var form = document.createElement("form");
       form.setAttribute("method", httpVerb);
       form.setAttribute("action", path);
       form.setAttribute("target", "_blank");
-
-      var hiddenFieldNamePictorial = document.createElement("input");
-      hiddenFieldNamePictorial.setAttribute("type", "hidden");
-      hiddenFieldNamePictorial.setAttribute("name", "name");
-      hiddenFieldNamePictorial.setAttribute("value", namePictorial);
-      form.appendChild(hiddenFieldNamePictorial);
-
-      var hiddenFieldFileNamePictorial = document.createElement("input");
-      hiddenFieldFileNamePictorial.setAttribute("type", "hidden");
-      hiddenFieldFileNamePictorial.setAttribute("name", "fileName");
-      hiddenFieldFileNamePictorial.setAttribute("value", fileNamePictorial);
-      form.appendChild(hiddenFieldFileNamePictorial);
-
-      var hiddenFieldDescriptionPictorial = document.createElement("input");
-      hiddenFieldDescriptionPictorial.setAttribute("type", "hidden");
-      hiddenFieldDescriptionPictorial.setAttribute("name", "description");
-      hiddenFieldDescriptionPictorial.setAttribute("value", descriptionPictorial);
-      form.appendChild(hiddenFieldDescriptionPictorial);
-
       document.body.appendChild(form);
       form.submit();
     }
-
-
     </script>
 
 

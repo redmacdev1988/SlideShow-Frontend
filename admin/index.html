@@ -20,13 +20,13 @@
 
     <script>
     function post(path, httpVerb) {
-      httpVerb = httpVerb || "post"; // Set method to post by default if not specified.
-      var form = document.createElement("form");
-      form.setAttribute("method", httpVerb);
-      form.setAttribute("action", path);
-      form.setAttribute("target", "_blank");
-      document.body.appendChild(form);
-      form.submit();
+        httpVerb = httpVerb || "post"; // Set method to post by default if not specified.
+        var form = document.createElement("form");
+        form.setAttribute("method", httpVerb);
+        form.setAttribute("action", path);
+        form.setAttribute("target", "_blank");
+        document.body.appendChild(form);
+        form.submit();
     }
     </script>
 

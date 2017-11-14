@@ -81,7 +81,7 @@ function defaultDescriptionPosition(descElemID) {
   }
 }
 
-function beforeDOMisLoaded (downloadLocations, timeline, descHashTable) {
+function afterDOMisLoaded (downloadLocations, timeline, descHashTable) {
 
   fetch("http://128.199.83.231/pictorials")
     .then((resp) => resp.json()) // Transform the data into json
@@ -95,7 +95,8 @@ function beforeDOMisLoaded (downloadLocations, timeline, descHashTable) {
 
       timeline.setCurrentToFirstFrame();
 
-      var carousel = (function(){
+      var carousel = (function() {
+        console.log("preloader.js - addEventListener");
         var next = document.querySelector('.next');
         var prev = document.querySelector('.prev');
 

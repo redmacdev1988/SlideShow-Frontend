@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Carousel - simplest version</title>
+  <title>Slide Show</title>
   <link rel="stylesheet" type="text/css" href="style.css">
 
   <script type="text/javascript" src="ListNode.js"></script>
@@ -15,18 +15,16 @@
   <script>
     var gDownloadLocations = [];
     var gTimeline = new TimeLiner();
-
-    //var gDescriptionData = [];
     var gDescriptionDataHashTable = HashTable.CreateObject(31);
-
   </script>
 
-  <script type="text/javascript" src="preloader.js"></script>
+  <script type="text/javascript" src="setup.js"></script>
   <script type="text/javascript" src="description.js"></script>
 
 </head>
 
-<body class="box" onload="beforeDOMisLoaded(gDownloadLocations, gTimeline, gDescriptionDataHashTable)">
+<!-- execute a script once a web page has completely loaded all content (including images, script files, CSS files, etc.). -->
+<body class="box" onload="afterDOMisLoaded(gDownloadLocations, gTimeline, gDescriptionDataHashTable)">
   <div class="ribbon" onclick="toggleImageDescription(gTimeline, gDescriptionDataHashTable, 'imageDescription')"><span>about</span></div>
   <div id ="imageDescription"></div>
   <a href="#" class="button next"></a>

@@ -22,25 +22,30 @@ function createElement(tagName, attributesArray, text, childrenToAppend) {
 }
 
 function createTitleLabel() {
-  return createElement("h1", undefined, "update existing entries");
+  var titleAttributes = [];
+  titleAttributes.push({
+    name : "class",
+    value : "alert alert-success"
+  });
+  return createElement("div", titleAttributes, "Edit existing description text below. You can also delete the pictorial.");
 }
 
 function createNameLabel(index) {
     var nameAttributes = [];
     nameAttributes.push({
       name : "class",
-      value : "name"
+      value : "badge badge-light idName"
     });
-    return createElement("p", nameAttributes,gDescriptionData[index].name);
+    return createElement("span", nameAttributes,gDescriptionData[index].name);
 }
 
 function createFileNameLabel(index) {
     var fileNameAttributes = [];
     fileNameAttributes.push({
       name : "class",
-      value : "fileName"
+      value : "badge badge-info fileName"
     });
-    return createElement("p", fileNameAttributes, gDescriptionData[index].fileName);
+    return createElement("span", fileNameAttributes, gDescriptionData[index].fileName);
 }
 
 function createTextArea(index) {
@@ -113,19 +118,17 @@ function createUpdateBtn(index) {
 
     updateButton.addEventListener ("click", function() {
 
-      console.log("update button clicked!");
+        console.log("update button clicked!");
+        var newDescription = document.getElementById(this.getAttribute("id")).value;
+        var requestURL = API_URL + this.getAttribute("id");
+        console.log("requestURL: ");
+        console.log(requestURL);
 
-      var newDescription = document.getElementById(this.getAttribute("id")).value;
-
-      var requestURL = API_URL + this.getAttribute("id");
-      console.log("requestURL: ");
-      console.log(requestURL);
-
-      var formData = new FormData();
-      formData.append('myKey', 'Ha dooooo ken!');
+        var formData = new FormData();
+        formData.append('myKey', 'Ha dooooo ken!');
 
         var request = new Request(requestURL, {
-        	method: 'POST',
+        	method: 'PUT',
         	mode: 'cors',
           body: "description="+newDescription, // 2 mb limit
         	redirect: 'follow',
@@ -134,10 +137,11 @@ function createUpdateBtn(index) {
         	})
         });
 
-      fetch(request).then(function(result) {
-        console.log("--- result ----");
-        console.log(result);
-      });
+        fetch(request).then(function(result) {
+            if (result.status == 200) {
+              alert("updated");
+            }
+        });
 
     });
     return updateButton;
@@ -147,14 +151,37 @@ function createSection(dataIndex) {
     var sectionAttributes = [];
     sectionAttributes.push({
       name : "class",
-      value : "row"
+      value : "list-group-item"
     });
 
-    return createElement( "div",
+    return createElement( "li",
       sectionAttributes,
       undefined,
       [createNameLabel(dataIndex), createFileNameLabel(dataIndex),
         createTextArea(dataIndex), createUpdateBtn(dataIndex), createDeleteBtn(dataIndex)]);
+}
+
+
+
+
+function plasterDataIntoElmentID(dataArray, elementID) {
+  var containerAttributes = [];
+  containerAttributes.push({
+    name : "class",
+    value : "list-group"
+  });
+
+  var container = createElement("ul", containerAttributes);
+  container.appendChild(createTitleLabel());
+
+  for (var i = 0; i < dataArray.length; i++) {
+    container.appendChild(createSection(i));
+  }
+
+  if (document.getElementById(elementID).appendChild(container))
+    return true;
+
+  return false;
 }
 
 
@@ -164,19 +191,37 @@ fetch(API_URL)
 
     console.log("description data received from " + API_URL);
     console.log(data);
+    var EDITING_SECTION_ID = "editingSection";
+
     gDescriptionData = data;
 
-    var containerAttributes = [];
-    containerAttributes.push({
-      name : "class",
-      value : "section"
-    });
+    var dataPlasteredIn = new Promise(
+        function (resolve, reject) {
+            if (plasterDataIntoElmentID(gDescriptionData, EDITING_SECTION_ID)) { resolve("plastered"); }
+            else { reject("Error"); }
+        }
+    ); //Promise
 
-    var container = createElement("div", containerAttributes);
-    container.appendChild(createTitleLabel());
+    var injectData = function () {
+        dataPlasteredIn // call our promise variable
+            .then(function (result) {
+                if(result === "plastered") {
+                  console.log("Data Injected!");
 
-    for (var i = 0; i < gDescriptionData.length; i++) {
-      container.appendChild(createSection(i));
-    }
-    document.body.appendChild(container);
+                  var items = document.getElementById(EDITING_SECTION_ID).getElementsByClassName("list-group-item");
+                  for ( var i = 0; i < items.length; i++) {
+                      if (i%2==0) items[i].style.backgroundColor = "pink";
+                      else items[i].style.border = "2px solid black";
+                  }
+
+                }
+            })
+            .catch(function (error) {
+                console.log(error.message);
+            });
+    };
+
+    injectData();
+
+
   });

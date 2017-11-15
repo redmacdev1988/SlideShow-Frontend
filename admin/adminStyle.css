@@ -44,3 +44,12 @@ textarea {
   background-color: lightblue;
   padding: 12px;
 }
+
+.idName {
+  float: left;
+  padding: 10px;
+}
+
+.fileName {
+  float: right;
+}

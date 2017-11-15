@@ -98,9 +98,7 @@ function HashTable(size) {
   var size = size || 0; // private
   var table = Array(size); // private
 
-  for (var i = 0; i < size; i++) {
-    table[i] = null;
-  }
+  for (var i = 0; i < size; i++) { table[i] = null; }
 
   var pvt_HashFunction = function(key) {
     var sum = 0;
@@ -114,18 +112,13 @@ function HashTable(size) {
     return sum;
   }
 
-  this.index = function(key) {
-    return pvt_HashFunction(key) % size;
-  }
+  this.index = function(key) { return pvt_HashFunction(key) % size; }
 
   this.insert = function(key, obj) {
-    var indexToInsert = this.index(key);
-    if (table[indexToInsert] == null) {
-      table[indexToInsert] = new Queue();
-    }
-    table[indexToInsert].insert(obj);
+      var indexToInsert = this.index(key);
+      if (table[indexToInsert] == null) { table[indexToInsert] = new Queue(); }
+      table[indexToInsert].insert(obj);
   }
-
 
   this.access = function(key) {
       var indexToRetrieve = this.index(key);
@@ -135,30 +128,21 @@ function HashTable(size) {
   }
 
   this.flatArray = function() {
-    var allHashTableElements = [];
-    for (var i = 0; i < table.length; i++) {
-        var queue = table[i];
-        if (queue) {
-          allHashTableElements = allHashTableElements.concat(queue.array());
-        }
-    }
-    return allHashTableElements;
+      var allHashTableElements = [];
+      for (var i = 0; i < table.length; i++) {
+          var queue = table[i];
+          if (queue) { allHashTableElements = allHashTableElements.concat(queue.array()); }
+      }
+      return allHashTableElements;
   }
 
   this.print = function() {
     console.log("======== hash table print ==========");
-    if (table.length <= 0) {
-        console.log("Ø hash table empty Ø");
-        return;
-    }
+    if (table.length <= 0) { console.log("Ø hash table empty Ø"); return; }
     for (var i = 0; i < table.length; i++) {
         var queue = table[i];
         console.log("     " + i + "    ");
-        if (table[i]) {
-          queue.print();
-        } else {
-          console.log(" EMPTY ");
-        }
+        if (table[i]) { queue.print(); } else { console.log(" EMPTY "); }
     }
   }
 

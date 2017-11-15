@@ -3,32 +3,49 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Carousel - admin section</title>
-  <link rel="stylesheet" type="text/css" href="adminStyle.css">
 
+  <title>Carousel - admin section</title>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" type="text/css" href="adminStyle.css">
   <script type="text/javascript" src="updatePictorials.js" ></script>
 
   <body>
-    <form id="frmUploader"
-          enctype="multipart/form-data"
-          action="http://128.199.83.231/api/Upload/"
-          method="put">
+    <div class="container">
+      <div class="jumbotron">
+        <h1>Admin your Pictorials</h1>
+      </div>
 
-      <input type="file" name="imgUploader" multiple />
-      <input type="submit" name="submit" id="btnSubmit" value="Upload"/>
-    </form>
+      <div class="row">
+        <div class="col">
 
-    <script>
-    function post(path, httpVerb) {
-        httpVerb = httpVerb || "post"; // Set method to post by default if not specified.
-        var form = document.createElement("form");
-        form.setAttribute("method", httpVerb);
-        form.setAttribute("action", path);
-        form.setAttribute("target", "_blank");
-        document.body.appendChild(form);
-        form.submit();
-    }
-    </script>
+          <form id="frmUploader"
+                enctype="multipart/form-data"
+                action="http://128.199.83.231/api/Upload"
+                method="POST">
+            <input type="file" name="imgUploader" id="imgUploader" multiple/>
+            <input type="submit" name="submit" id="btnSubmit" value="Upload"/>
+          </form>
+
+        </div>
+
+        <div class="col">
+          <div id="log"></div>
+        </div>
+
+        <div class="col">
+            1/2 - upload your image. Make sure it is at least 1200 by 800 and at least 72dpi. After uploading your image, the next step will be to insert text.
+        </div>
+
+      </div> <!-- row -->
+
+      <div id="editingSection">
+      </div>
+
+    </div> <!-- container -->
 
 
   </body>

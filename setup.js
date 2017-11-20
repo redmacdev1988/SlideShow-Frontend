@@ -5,8 +5,11 @@ var BODY_CLASS = "body";
 var START_POINT = -200;
 
 function is_cached(src) {
+    console.log("Checking to see if " + src + " is cached");
     var image = new Image();
+    console.log("image.src = " + src);
     image.src = src;
+    console.log("image.complete is: " + image.complete);
     return image.complete;
 }
 
@@ -25,7 +28,7 @@ function loadImage(timeline) {
                 body.removeChild(loader);
             }, 200);
     };
-    console.log("img.src =" + url);
+    console.log("img.src = " + url);
     img.src = url;
   }
 
@@ -34,13 +37,22 @@ function navigate(direction, timeline) {
   else if (direction < 0) timeline.previousFrame();
   else timeline.setCurrentToFirstFrame();
 
-  if (!is_cached(timeline.currentFrame().data)) {
-    // put in loader
+  var imgURL = timeline.currentFrame().data;
+
+  if (!is_cached(imgURL)) {
+    console.log("setup.js - NOT cached, so we put up a loader animation");
     var loader = document.createElement("div");
     loader.id = LOADER_ID;
     document.getElementsByTagName(BODY_CLASS)[0].appendChild(loader);
+    console.log("setup.js - loading the image with loadImage");
+    loadImage(timeline);
+  } else {
+    console.log("setup.js - image already cached...just stick it in the background");
+    var body = document.getElementsByTagName(BODY_CLASS)[0];
+    body.style.backgroundImage = "url(" + imgURL + ")";
   }
-  loadImage(timeline);
+
+
 }
 
 

@@ -8,3 +8,5 @@ front end of the SlideShow
 https://github.com/redmacdev1988/SlideShow-Frontend/wiki/Inner-Workings-(Slide-Show)
 
 # How it works for providing data on the Server Side
+
+https://github.com/redmacdev1988/SlideShow-Frontend/wiki/Inner-Workings-(Admin)

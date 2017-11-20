@@ -13,11 +13,8 @@ function is_cached(src) {
 
 function loadImage(timeline) {
     var img = new Image(), url = timeline.currentFrame().data;
-
-    console.log("loadImage - image source--");
-    console.log(img.src);
-
     img.onload = function() {
+        console.log(" image at url loaded into JS Image() object, let's set it to the backgroundImage property.");
         var body = document.getElementsByTagName(BODY_CLASS)[0];
         body.style.backgroundImage = "url(" + url + ")";
 
@@ -27,9 +24,9 @@ function loadImage(timeline) {
                 if(loader)
                 body.removeChild(loader);
             }, 200);
-      };
-      img.src = url;
-
+    };
+    console.log("img.src =" + url);
+    img.src = url;
   }
 
 function navigate(direction, timeline) {

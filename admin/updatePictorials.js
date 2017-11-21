@@ -91,7 +91,6 @@ function createDeleteBtn(name) {
         console.log("--- result ----");
         console.log(result);
         document.location.reload(true); // refresh page
-
       });
   }); // addEventListener
 
@@ -151,7 +150,7 @@ function createSection(dataIndex, descriptionDataArray) {
       undefined,
       [createNameLabel(descriptionDataArray[dataIndex].name),
        createFileNameLabel(descriptionDataArray[dataIndex].fileName),
-       createTextArea(gDescriptionData[index].name, descriptionDataArray[dataIndex].description),
+       createTextArea(gDescriptionData[dataIndex].name, descriptionDataArray[dataIndex].description),
        createUpdateBtn(descriptionDataArray[dataIndex].name, descriptionDataArray[dataIndex].description),
        createDeleteBtn(descriptionDataArray[dataIndex].name)]);
 }

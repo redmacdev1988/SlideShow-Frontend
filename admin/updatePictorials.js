@@ -30,25 +30,25 @@ function createTitleLabel() {
   return createElement("div", titleAttributes, "Edit existing description text below. You can also delete the pictorial.");
 }
 
-function createNameLabel(index) {
+function createNameLabel(name) {
     var nameAttributes = [];
     nameAttributes.push({
       name : "class",
       value : "badge badge-light idName"
     });
-    return createElement("span", nameAttributes,gDescriptionData[index].name);
+    return createElement("span", nameAttributes, name);
 }
 
-function createFileNameLabel(index) {
+function createFileNameLabel(fileName) {
     var fileNameAttributes = [];
     fileNameAttributes.push({
       name : "class",
       value : "badge badge-info fileName"
     });
-    return createElement("span", fileNameAttributes, gDescriptionData[index].fileName);
+    return createElement("span", fileNameAttributes, fileName);
 }
 
-function createTextArea(index) {
+function createTextArea(name, description) {
     var textAreaAttributes = [];
     textAreaAttributes.push({
       name : "class",
@@ -56,12 +56,12 @@ function createTextArea(index) {
     });
     textAreaAttributes.push({
       name : "id",
-      value : gDescriptionData[index].name
+      value : name
     });
-    return createElement("textarea", textAreaAttributes, gDescriptionData[index].description);
+    return createElement("textarea", textAreaAttributes, description);
 }
 
-function createDeleteBtn(index) {
+function createDeleteBtn(name) {
   var deleteBtnAttributes = [];
   deleteBtnAttributes.push({
     name : "class",
@@ -69,7 +69,7 @@ function createDeleteBtn(index) {
   });
   deleteBtnAttributes.push({
     name : "id",
-    value : gDescriptionData[index].name
+    value : name
   });
 
   var deleteButton = createElement("button", deleteBtnAttributes, "delete");
@@ -98,7 +98,7 @@ function createDeleteBtn(index) {
   return deleteButton;
 }
 
-function createUpdateBtn(index) {
+function createUpdateBtn(name, description) {
 
     var updateBtnAttributes = [];
     updateBtnAttributes.push({
@@ -107,26 +107,18 @@ function createUpdateBtn(index) {
     });
     updateBtnAttributes.push({
       name : "id",
-      value : gDescriptionData[index].name
+      value : name
     });
     updateBtnAttributes.push({
       name : "descriptionData",
-      value : gDescriptionData[index].description
+      value : description
     });
 
     var updateButton = createElement("button", updateBtnAttributes, "update");
 
     updateButton.addEventListener ("click", function() {
-
-        console.log("update button clicked!");
         var newDescription = document.getElementById(this.getAttribute("id")).value;
         var requestURL = API_URL + this.getAttribute("id");
-        console.log("requestURL: ");
-        console.log(requestURL);
-
-        var formData = new FormData();
-        formData.append('myKey', 'Ha dooooo ken!');
-
         var request = new Request(requestURL, {
         	method: 'PUT',
         	mode: 'cors',
@@ -147,7 +139,7 @@ function createUpdateBtn(index) {
     return updateButton;
 }
 
-function createSection(dataIndex) {
+function createSection(dataIndex, descriptionDataArray) {
     var sectionAttributes = [];
     sectionAttributes.push({
       name : "class",
@@ -157,14 +149,17 @@ function createSection(dataIndex) {
     return createElement( "li",
       sectionAttributes,
       undefined,
-      [createNameLabel(dataIndex), createFileNameLabel(dataIndex),
-        createTextArea(dataIndex), createUpdateBtn(dataIndex), createDeleteBtn(dataIndex)]);
+      [createNameLabel(descriptionDataArray[dataIndex].name),
+       createFileNameLabel(descriptionDataArray[dataIndex].fileName),
+       createTextArea(gDescriptionData[index].name, descriptionDataArray[dataIndex].description),
+       createUpdateBtn(descriptionDataArray[dataIndex].name, descriptionDataArray[dataIndex].description),
+       createDeleteBtn(descriptionDataArray[dataIndex].name)]);
 }
 
 
 
 
-function plasterDataIntoElmentID(dataArray, elementID) {
+function plasterDataIntoElementID(dataArray, elementID) {
   var containerAttributes = [];
   containerAttributes.push({
     name : "class",
@@ -175,7 +170,7 @@ function plasterDataIntoElmentID(dataArray, elementID) {
   container.appendChild(createTitleLabel());
 
   for (var i = 0; i < dataArray.length; i++) {
-    container.appendChild(createSection(i));
+    container.appendChild(createSection(i, dataArray));
   }
 
   if (document.getElementById(elementID).appendChild(container))
@@ -197,7 +192,7 @@ fetch(API_URL)
 
     var dataPlasteredIn = new Promise(
         function (resolve, reject) {
-            if (plasterDataIntoElmentID(gDescriptionData, EDITING_SECTION_ID)) { resolve("plastered"); }
+            if (plasterDataIntoElementID(gDescriptionData, EDITING_SECTION_ID)) { resolve("plastered"); }
             else { reject("Error"); }
         }
     ); //Promise

@@ -3,7 +3,8 @@ front end of the SlideShow
 
 # How to use
 
-A basic slideshow where you can go left, and right. You can also bring up the description of the image by pressing the about button on top.
+This slideshow puts your image onto the browser like a wallpaper. Your image will takes up the full browser space, showcasing the beauty of your image.
+As a slideshow, you can browse left and right. You can also bring up the description of the image by pressing the about button on top.
 
 admin functionalities:
 https://github.com/redmacdev1988/SlideShow-Frontend/wiki/How-to-Use-(Admin)

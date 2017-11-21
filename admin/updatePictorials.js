@@ -80,7 +80,7 @@ function createDeleteBtn(name) {
       var request = new Request(requestURL, {
         method: 'DELETE',
         mode: 'cors',
-        body: "pictorialId="+gDescriptionData[index].name, // 2 mb limit
+        body: "pictorialId="+name, // 2 mb limit
         redirect: 'follow',
         headers: new Headers({
           'Content-Type': 'application/x-www-form-urlencoded'

@@ -1,6 +1,6 @@
 # Wallpaper SlideShow (front end)
 
-![]https://github.com/redmacdev1988/SlideShow-Frontend/blob/master/about-resources/front.jpg
+![](https://github.com/redmacdev1988/SlideShow-Frontend/blob/master/about-resources/front.jpg)
 
 # How to use
 

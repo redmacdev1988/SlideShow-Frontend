@@ -1,4 +1,3 @@
-var gDescriptionData;
 var API_URL = "http://128.199.83.231/pictorials/";
 
 function createElement(tagName, attributesArray, text, childrenToAppend) {
@@ -150,7 +149,7 @@ function createSection(dataIndex, descriptionDataArray) {
       undefined,
       [createNameLabel(descriptionDataArray[dataIndex].name),
        createFileNameLabel(descriptionDataArray[dataIndex].fileName),
-       createTextArea(gDescriptionData[dataIndex].name, descriptionDataArray[dataIndex].description),
+       createTextArea(descriptionDataArray[dataIndex].name, descriptionDataArray[dataIndex].description),
        createUpdateBtn(descriptionDataArray[dataIndex].name, descriptionDataArray[dataIndex].description),
        createDeleteBtn(descriptionDataArray[dataIndex].name)]);
 }
@@ -187,11 +186,9 @@ fetch(API_URL)
     console.log(data);
     var EDITING_SECTION_ID = "editingSection";
 
-    gDescriptionData = data;
-
     var dataPlasteredIn = new Promise(
         function (resolve, reject) {
-            if (plasterDataIntoElementID(gDescriptionData, EDITING_SECTION_ID)) { resolve("plastered"); }
+            if (plasterDataIntoElementID(data, EDITING_SECTION_ID)) { resolve("plastered"); }
             else { reject("Error"); }
         }
     ); //Promise

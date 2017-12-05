@@ -33,34 +33,32 @@ function loadImage(timeline) {
   }
 
 function navigate(direction, timeline) {
-  if (direction > 0) timeline.nextFrame();
-  else if (direction < 0) timeline.previousFrame();
-  else timeline.setCurrentToFirstFrame();
+    if (direction > 0) timeline.nextFrame();
+    else if (direction < 0) timeline.previousFrame();
+    else timeline.setCurrentToFirstFrame();
 
-  var imgURL = timeline.currentFrame().data;
+    var imgURL = timeline.currentFrame().data;
 
-  if (!is_cached(imgURL)) {
-    console.log("setup.js - NOT cached, so we put up a loader animation");
-    var loader = document.createElement("div");
-    loader.id = LOADER_ID;
-    document.getElementsByTagName(BODY_CLASS)[0].appendChild(loader);
-    console.log("setup.js - loading the image with loadImage");
-    loadImage(timeline);
-  } else {
-    console.log("setup.js - image already cached...just stick it in the background");
-    var body = document.getElementsByTagName(BODY_CLASS)[0];
-    body.style.backgroundImage = "url(" + imgURL + ")";
-  }
-
-
+    if (!is_cached(imgURL)) {
+        console.log("setup.js - NOT cached, so we put up a loader animation");
+        var loader = document.createElement("div");
+        loader.id = LOADER_ID;
+        document.getElementsByTagName(BODY_CLASS)[0].appendChild(loader);
+        console.log("setup.js - loading the image with loadImage");
+        loadImage(timeline);
+    } else {
+        console.log("setup.js - image already cached...just stick it in the background");
+        var body = document.getElementsByTagName(BODY_CLASS)[0];
+        body.style.backgroundImage = "url(" + imgURL + ")";
+    }
 }
 
 
 function setupHashTable(hashTable, dataArray) {
-  for(var index = 0; index < dataArray.length; index++) {
-      console.log("inserting into hash table: " + dataArray[index].name);
-      hashTable.insert(dataArray[index].name, dataArray[index]);
-  }
+    for(var index = 0; index < dataArray.length; index++) {
+        console.log("Inserting into hash table: " + dataArray[index].name);
+        hashTable.insert(dataArray[index].name, dataArray[index]);
+    }
 }
 
 function setupDownloadLocations(locations, data) {
@@ -71,23 +69,23 @@ function setupDownloadLocations(locations, data) {
 }
 
 function setupTimeline(timeline, downloadLocations) {
-  for (var index = 0; index < downloadLocations.length; index++) {
-      timeline.insertTimeFrame(downloadLocations[index]);
-  }
+    for (var index = 0; index < downloadLocations.length; index++) {
+        timeline.insertTimeFrame(downloadLocations[index]);
+    }
 }
 
 function defaultDescriptionPosition(descElemID) {
-  var imgDesc = document.getElementById(descElemID);
-  if (imgDesc.style.top != "") {
-    // if its > 0, bring it up to -200px
-    var top = imgDesc.style.top.replace(/[^0-9\-]/g, '');
-    var topNum = Number(top);
+    var imgDesc = document.getElementById(descElemID);
+    if (imgDesc.style.top != "") {
+        // if its > 0, bring it up to -200px
+        var top = imgDesc.style.top.replace(/[^0-9\-]/g, '');
+        var topNum = Number(top);
 
-    // if it is visible
-    if (topNum > 0) {
-        imgDesc.style.top = START_POINT+"px"; // let's make it invisible
+        // if it is visible
+        if (topNum > 0) {
+            imgDesc.style.top = START_POINT+"px"; // let's make it invisible
+        }
     }
-  }
 }
 
 function afterDOMisLoaded (downloadLocations, timeline, descHashTable) {

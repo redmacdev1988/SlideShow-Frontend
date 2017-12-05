@@ -2,39 +2,39 @@
 var API_URL = "http://128.199.83.231/pictorials/";
 
 function createElement(tagName, attributesArray, text, childrenToAppend) {
-  var element;
-  if (typeof tagName !== 'undefined') { element = document.createElement(tagName); }
-  if (typeof text !== 'undefined') { element.appendChild(document.createTextNode(text)); }
+    var element;
+    if (typeof tagName !== 'undefined') { element = document.createElement(tagName); }
+    if (typeof text !== 'undefined') { element.appendChild(document.createTextNode(text)); }
 
-  if (Array.isArray(attributesArray) && attributesArray.length > 0) {
-    for (var i = 0; i < attributesArray.length; i++) {
-        var attribute = attributesArray[i];
-        element.setAttribute(attribute.name, attribute.value);
+    if (Array.isArray(attributesArray) && attributesArray.length > 0) {
+        for (var i = 0; i < attributesArray.length; i++) {
+            var attribute = attributesArray[i];
+            element.setAttribute(attribute.name, attribute.value);
+        }
     }
-  }
 
-  if (Array.isArray(childrenToAppend) && childrenToAppend.length > 0) {
-    for (var i = 0; i < childrenToAppend.length; i++) {
-        element.appendChild(childrenToAppend[i]);
+    if (Array.isArray(childrenToAppend) && childrenToAppend.length > 0) {
+        for (var i = 0; i < childrenToAppend.length; i++) {
+            element.appendChild(childrenToAppend[i]);
+        }
     }
-  }
-  return element;
+    return element;
 }
 
 function createTitleLabel() {
-  var titleAttributes = [];
-  titleAttributes.push({
-    name : "class",
-    value : "alert alert-success"
-  });
-  return createElement("div", titleAttributes, "Edit existing description text below. You can also delete the pictorial.");
+    var titleAttributes = [];
+    titleAttributes.push({
+        name : "class",
+        value : "alert alert-success"
+    });
+    return createElement("div", titleAttributes, "Edit existing description text below. You can also delete the pictorial.");
 }
 
 function createNameLabel(name) {
     var nameAttributes = [];
     nameAttributes.push({
-      name : "class",
-      value : "badge badge-light idName"
+        name : "class",
+        value : "badge badge-light idName"
     });
     return createElement("span", nameAttributes, name);
 }
@@ -42,8 +42,8 @@ function createNameLabel(name) {
 function createFileNameLabel(fileName) {
     var fileNameAttributes = [];
     fileNameAttributes.push({
-      name : "class",
-      value : "badge badge-info fileName"
+        name : "class",
+        value : "badge badge-info fileName"
     });
     return createElement("span", fileNameAttributes, fileName);
 }
@@ -51,87 +51,81 @@ function createFileNameLabel(fileName) {
 function createTextArea(name, description) {
     var textAreaAttributes = [];
     textAreaAttributes.push({
-      name : "class",
-      value : "description"
+        name : "class",
+        value : "description"
     });
     textAreaAttributes.push({
-      name : "id",
-      value : name
+        name : "id",
+        value : name
     });
     return createElement("textarea", textAreaAttributes, description);
 }
 
 function createDeleteBtn(name) {
-  var deleteBtnAttributes = [];
-  deleteBtnAttributes.push({
-    name : "class",
-    value : "delete"
-  });
-  deleteBtnAttributes.push({
-    name : "id",
-    value : name
-  });
+    var deleteBtnAttributes = [];
+    deleteBtnAttributes.push({
+        name : "class",
+        value : "delete"
+    });
 
-  var deleteButton = createElement("button", deleteBtnAttributes, "delete");
+    deleteBtnAttributes.push({
+        name : "id",
+        value : name
+    });
 
-  deleteButton.addEventListener ("click", function() {
-      console.log("DELETE button clicked!");
-      var requestURL = API_URL + this.getAttribute("id");
-      var request = new Request(requestURL, {
-        method: 'DELETE',
-        mode: 'cors',
-        body: "pictorialId="+name, // 2 mb limit
-        redirect: 'follow',
-        headers: new Headers({
-          'Content-Type': 'application/x-www-form-urlencoded'
-        })
-      });
+    var deleteButton = createElement("button", deleteBtnAttributes, "delete");
 
-      fetch(request).then(function(result) {
-        console.log("--- result ----");
-        console.log(result);
-        document.location.reload(true); // refresh page
-      });
-  }); // addEventListener
+    deleteButton.addEventListener ("click", function() {
+        console.log("DELETE button clicked!");
+        var requestURL = API_URL + this.getAttribute("id");
+        var request = new Request(requestURL, {
+            method: 'DELETE',
+            mode: 'cors',
+            body: "pictorialId="+name, // 2 mb limit
+            redirect: 'follow',
+            headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded'})
+        });
 
-  return deleteButton;
+        fetch(request).then(function(result) {
+            console.log("--- result ----");
+            console.log(result);
+            document.location.reload(true); // refresh page
+        });
+    }); // addEventListener
+
+    return deleteButton;
 }
 
 function createUpdateBtn(name, description) {
 
     var updateBtnAttributes = [];
     updateBtnAttributes.push({
-      name : "class",
-      value : "update"
+        name : "class",
+        value : "update"
     });
     updateBtnAttributes.push({
-      name : "id",
-      value : name
+        name : "id",
+        value : name
     });
     updateBtnAttributes.push({
-      name : "descriptionData",
-      value : description
+        name : "descriptionData",
+        value : description
     });
 
     var updateButton = createElement("button", updateBtnAttributes, "update");
-
     updateButton.addEventListener ("click", function() {
         var newDescription = document.getElementById(this.getAttribute("id")).value;
         var requestURL = API_URL + this.getAttribute("id");
         var request = new Request(requestURL, {
-        	method: 'PUT',
-        	mode: 'cors',
-          body: "description="+newDescription, // 2 mb limit
-        	redirect: 'follow',
-        	headers: new Headers({
-        		'Content-Type': 'application/x-www-form-urlencoded'
-        	})
+        	  method: 'PUT',
+        	  mode: 'cors',
+            body: "description="+newDescription, // 2 mb limit
+        	  redirect: 'follow',
+        	  headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded'})
         });
 
         fetch(request).then(function(result) {
-            if (result.status == 200) {
-              alert("updated");
-            }
+            if (result.status == 200) { alert("updated"); }
         });
 
     });
@@ -141,18 +135,18 @@ function createUpdateBtn(name, description) {
 function createSection(dataIndex, descriptionDataArray) {
     var sectionAttributes = [];
     sectionAttributes.push({
-      name : "class",
-      value : "list-group-item"
+        name : "class",
+        value : "list-group-item"
     });
 
     return createElement( "li",
-      sectionAttributes,
-      undefined,
-      [createNameLabel(descriptionDataArray[dataIndex].name),
-       createFileNameLabel(descriptionDataArray[dataIndex].fileName),
-       createTextArea(descriptionDataArray[dataIndex].name, descriptionDataArray[dataIndex].description),
-       createUpdateBtn(descriptionDataArray[dataIndex].name, descriptionDataArray[dataIndex].description),
-       createDeleteBtn(descriptionDataArray[dataIndex].name)]);
+    sectionAttributes,
+    undefined,
+    [createNameLabel(descriptionDataArray[dataIndex].name),
+    createFileNameLabel(descriptionDataArray[dataIndex].fileName),
+    createTextArea(descriptionDataArray[dataIndex].name, descriptionDataArray[dataIndex].description),
+    createUpdateBtn(descriptionDataArray[dataIndex].name, descriptionDataArray[dataIndex].description),
+    createDeleteBtn(descriptionDataArray[dataIndex].name)]);
 }
 
 

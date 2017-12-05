@@ -35,31 +35,31 @@ function CircularList() {
     // public
     // O(n)
     this.stepNext = function(steps) {
-      if(!isNaN(steps) && steps > 0) {
-        while (steps > 0) {
-          now = now.next;
-          steps--;
+        if(!isNaN(steps) && steps > 0) {
+            while (steps > 0) {
+                now = now.next;
+                steps--;
+            }
         }
-      }
     };
 
     // public
     // O(n)
     this.stepPrev = function(steps) {
-      if(!isNaN(steps) && steps > 0) {
-        while (steps > 0) {
-          now = now.prev;
-          steps--;
+        if(!isNaN(steps) && steps > 0) {
+            while (steps > 0) {
+                now = now.prev;
+                steps--;
+            }
         }
-      }
     };
 
     // public
     // O(1)
     this.insert = function(data) {
         if (head === null && tail === null) {
-           head = new ListNode(data, null, null);
-           tail = head;
+            head = new ListNode(data, null, null);
+            tail = head;
         } else {
            tail = new ListNode(data, tail, head);
            tail.prev.next = tail;
@@ -74,17 +74,17 @@ function CircularList() {
         console.log("-- we want to remove {" + data + "} --");
 
         if (isEmpty()) {
-          console.log("Nothing to remove because list is empty");
-          return;
+            console.log("Nothing to remove because list is empty");
+            return;
         }
 
         var traversal = head;
-        if(removeLastNode(traversal)) return;
+        if (removeLastNode(traversal)) return;
         do {
             if (dataMatches(data.toUpperCase(), traversal.data.toUpperCase())) {
-              if (removeNodeAtHead(traversal)) return;
-              if (removeNodeAtTail(traversal)) return;
-              if (removeNodeInBetween(traversal)) return;
+                if (removeNodeAtHead(traversal)) return;
+                if (removeNodeAtTail(traversal)) return;
+                if (removeNodeInBetween(traversal)) return;
             }
             traversal = traversal.next;
         } while (traversal != head);
@@ -94,19 +94,19 @@ function CircularList() {
     // public
     // O(n)
     this.print = function() {
-      if (head === null) { console.log("-- LIST IS EMPTY --"); return; }
+        if (head === null) { console.log("-- LIST IS EMPTY --"); return; }
 
-      var traversal = head;
-      do {
-        traversal.display();
-        traversal = traversal.next;
-      } while (traversal !== head && traversal != null);
-
+        var traversal = head;
+        do {
+            traversal.display();
+            traversal = traversal.next;
+        } while (traversal !== head && traversal != null);
     };
 
     function isEmpty() {
         return (head == null && tail == null);
     }
+
     // private
     // O(1)
     function dataMatches (data1, data2) {
@@ -164,6 +164,5 @@ function CircularList() {
         }
         return false;
     }
-
 
 }

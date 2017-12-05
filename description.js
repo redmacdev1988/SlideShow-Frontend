@@ -23,30 +23,31 @@ function toggleImageDescription(timeline, descriptionHashTable, descriptionEleme
         gPos = Number(topPx);
         visible = (gPos < 0) ? false : true;
     } else {
-      elem.style.top = START_POINT+"px";
-      gPos = START_POINT;
-      visible = false;
+        elem.style.top = START_POINT+"px";
+        gPos = START_POINT;
+        visible = false;
     }
 
     var id = setInterval(animateDescriptionFunc, 5); // calls frame function every 5 millisecond
+
     function animateDescriptionFunc() {
         if (visible === false) {
-          if (gPos >= END_POINT) {
-            clearInterval(id);
-            visible = true;
-          }
-          else {
-            gPos += SPEED;
-            elem.style.top = gPos + 'px';
+            if (gPos >= END_POINT) {
+                clearInterval(id);
+                visible = true;
+            }
+            else {
+                gPos += SPEED;
+                elem.style.top = gPos + 'px';
           }
         } else {
-          if (gPos > START_POINT) {
-            gPos -= SPEED;
-            elem.style.top = gPos + 'px';
-          } else {
-            clearInterval(id);
-            visible = false;
-          }
+            if (gPos > START_POINT) {
+                gPos -= SPEED;
+                elem.style.top = gPos + 'px';
+            } else {
+                clearInterval(id);
+                visible = false;
+            }
         }
     }
 

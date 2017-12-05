@@ -12,9 +12,9 @@ function ListNode(newData, newPrev, newNext) {
     this.prev = newPrev;
 
     this.clean = function() {
-      this.data = null;
-      this.next = null;
-      this.prev = null;
+        this.data = null;
+        this.next = null;
+        this.prev = null;
     }
 
     this.display = function() {

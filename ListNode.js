@@ -18,8 +18,7 @@ function ListNode(newData, newPrev, newNext) {
     }
 
     this.display = function() {
-        console.log("ListNode data >")
-        console.log(this.data);
-    };
+        console.log("[" + this.data + "]");
+    }
     // return this
 }

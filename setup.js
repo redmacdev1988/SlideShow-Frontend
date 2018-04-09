@@ -63,7 +63,8 @@ function setupHashTable(hashTable, dataArray) {
 
 function setupDownloadLocations(locations, data) {
     for (var imageIndex = 0; imageIndex < data.length; imageIndex++) {
-        var imageFileLocation = "http://128.199.83.231/"+data[imageIndex].fileName;
+        //var imageFileLocation = "http://128.199.83.231/"+data[imageIndex].fileName;
+        var imageFileLocation = "http://localhost:8080/"+data[imageIndex].fileName;
         locations.push(imageFileLocation);
     }
 }
@@ -89,8 +90,9 @@ function defaultDescriptionPosition(descElemID) {
 }
 
 function afterDOMisLoaded (downloadLocations, timeline, descHashTable) {
-
-  fetch("http://128.199.83.231/pictorials")
+ // todo - change url to local
+  //fetch("http://128.199.83.231/pictorials")
+  fetch("http://localhost:8080/pictorials")
     .then((resp) => resp.json()) // Transform the data into json
     .then(function(data) {
 

@@ -2,7 +2,7 @@
 
 
 function TimeLiner() {
-    this.circularList = new CircularList();
+    this.circularList = new CircularList("TimeLiner");
 
     this.insertTimeFrame = function(data) {
       this.circularList.insert(data);
@@ -13,11 +13,11 @@ function TimeLiner() {
     };
 
     this.nextFrame = function() {
-        return this.circularList.stepNext(1);
+        return this.circularList.step(1, StepEnum.NEXT);
     };
 
     this.previousFrame = function() {
-        return this.circularList.stepPrev(1);
+        return this.circularList.step(1, StepEnum.PREV);
     };
 
     this.setCurrentToFirstFrame = function() {

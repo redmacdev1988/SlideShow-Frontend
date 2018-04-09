@@ -13,6 +13,9 @@
   <link rel="stylesheet" type="text/css" href="adminStyle.css">
   <script type="text/javascript" src="updatePictorials.js" ></script>
 
+
+
+
   <body>
     <div class="container">
       <div class="jumbotron">
@@ -20,17 +23,20 @@
       </div>
 
       <div class="row">
+        <h3>Insert Image into the Gallery</h3>
         <div class="col">
 
-          <form id="frmUploader"
-                enctype="multipart/form-data"
-                action="http://128.199.83.231/api/Upload"
-                method="POST">
-            <input type="file" name="imgUploader" id="imgUploader" multiple/>
+            <input type="file" onchange="onFileSelected(event)" name="imgUploader" id="imgUploader"
+            multiple/>
             <input type="submit" name="submit" id="btnSubmit" value="Upload"/>
-          </form>
 
         </div>
+        <img id="preview" height="300">
+
+        <canvas id="myCanvas" width="880" height="880" style="border:1px solid #d3d3d3;">
+        Your browser does not support the HTML5 canvas tag.
+        </canvas>
+
 
         <div class="col">
           <div id="log"></div>
@@ -44,6 +50,45 @@
       </div>
 
     </div> <!-- container -->
+
+
+    <script>
+        function onFileSelected(evt) {
+            console.log("onFileSelected....!");
+
+            var selectedFile = event.target.files[0];
+            var reader = new FileReader();
+
+            var imgtag = document.getElementById("preview");
+            imgtag.title = selectedFile.name;
+
+            reader.onload = function(event) {
+
+              console.dir(imgtag);
+
+              // assign image into myCanvas
+              imgtag.src = event.target.result;
+
+              var c = document.getElementById("myCanvas");
+              var ctx = c.getContext("2d");
+
+              console.log(imgtag);
+
+              // image is at imgtag
+              ctx.drawImage(imgtag, 0, 0);
+
+            };
+
+            reader.readAsDataURL(selectedFile);
+
+
+
+            // create 1 image file from these files.
+            // Then send it to server via 'Upload' button
+        }
+
+    </script>
+
 
 
   </body>

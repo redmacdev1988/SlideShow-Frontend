@@ -99,3 +99,63 @@ let Person = (function () {
 
 let rickyPerson = new Person("ricky");
 rickyPerson.greet();
+
+let arr = new Array();
+arr[0] = "ricky";
+arr[1] = "bob";
+arr[2] = "grandma";
+arr[3] = "grandpa";
+arr[4] = "shark";
+arr["hobbies"] = "badminton, hill climbing, etc";
+arr["lastName"] = "Tsao";
+arr[-1.23] = "decimal";
+arr[true] = "DESTROY"
+arr[false] = "CREATE"
+
+console.log(arr);
+console.log(arr.length);
+
+
+var cars = ["Saab", "Volvo", "BMW"];
+console.log(cars[2]);
+console.log(cars[3]); // undefined
+
+cars["dealership"] = "longo, CA"
+console.log(cars);
+
+let newArr = new Array(8);
+newArr[0] = "A";
+newArr[1] = "AA";
+newArr.push("Woa");
+console.log(newArr);
+
+console.log("------- new Object(...) -- - - ")
+
+// stores an empty object in the person1 variable
+var person1 = new Object();
+
+// then add properties to it
+person1.name = 'chris'
+person1['age']  = 34;
+person1.greeting = function() {
+  console.log(`yo! I'm ${this.name}`)
+}
+
+console.log(person1);
+person1.greeting();
+
+// pass in literal object
+var person2 = new Object({
+  name: 'riky',
+  age: 38,
+  greeting: function() {
+    console.log(`hi! i'm ${this.name}`)
+  }
+});
+
+console.log(person2)
+person2.greeting();
+
+person3 = Object.create(person2);
+console.log(person3.name)
+person3.greeting();

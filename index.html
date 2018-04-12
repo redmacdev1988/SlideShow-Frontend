@@ -15,11 +15,12 @@
   <script>
     var gDownloadLocations = [];
     var gTimeline = new TimeLiner();
-    var gDescriptionDataHashTable = HashTable.CreateObject(31);
+    var gDescriptionDataHashTable = new HashTable(31);
   </script>
 
   <script type="text/javascript" src="setup.js"></script>
   <script type="text/javascript" src="description.js"></script>
+
 
 </head>
 
@@ -30,4 +31,6 @@
   <a href="#" class="button next"></a>
   <a href="#" class="button prev"></a>
 </body>
+
+
 </html>

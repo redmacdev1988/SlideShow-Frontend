@@ -1,36 +1,12 @@
-"use strict";
 
 var StepEnum = Object.freeze({NEXT: "step next", PREV: "step previous"});
 
-function ListNode(newData, newPrev, newNext) {
-
-    // this = {}
-    if (new.target === undefined) {
-         console.log('You didnt use new. Giving you a new Node Object');
-         return new Node();
-    }
-
-    // public properties
-    this.data = newData;
-    this.next = newNext;
-    this.prev = newPrev;
-
-    // public functions
-    this.clean = function() {
-        this.data = null;
-        this.next = null;
-        this.prev = null;
-    }
-
-    this.display = function() {
-        console.log("[" + this.data + "]")
-    }
-    // return this
-} // List Node
-
-
 class CircularList {
 
+  // properties and functions declared in constructor
+  // are attached to "this" object
+  // Hence, it is copied into every instance
+  // log CircularListClass or the instance itself.
   constructor(listName) {
     console.log("Constructing CircularList " + listName);
     // uses scope variables for privacy
@@ -40,9 +16,11 @@ class CircularList {
     // getting the new name
     this.getName = function() { return _name; }
 
+    // private member variables //////////////////////////
 
-    // private member variables
     var _head = null;
+
+    // pubic getter setter for private variable
     this.setHead = function(newHead) {_head = newHead;}
     this.getHead = function() {return _head;}
 
@@ -54,7 +32,7 @@ class CircularList {
     this.setNow = function(newNow) {_now=newNow;}
     this.getNow = function() {return _now;}
 
-    // private functions
+    // private functions //////////////////////////
 
     let dataMatches = (data1, data2) => {
         return (data1.toUpperCase() === data2.toUpperCase());
@@ -117,7 +95,7 @@ class CircularList {
         return false;
     }
 
-    // public function that uses private
+    // public function that uses privates
     this.remove = function(data){
         if (this.isEmpty()) {
             console.log("Remove: Nothing to remove because list is empty");
@@ -145,29 +123,9 @@ class CircularList {
 
   } // end of constructor
 
-  current() {
-    return this.getNow();
-  }
 
-  setCurrentToHead() {
-      this.setNow(this.getHead());
-      return this.getNow();
-  }
-
-  setCurrentToTail() {
-      this.setNow(this.getTail());
-      return this.getNow();
-  };
-
-  step(steps, step_ENUM) {
-      if(!isNaN(steps) && steps > 0) {
-        do {
-          this.setNow((step_ENUM === StepEnum.NEXT) ? this.getNow().next : this.getNow().prev);
-          steps--;
-        } while (steps > 0);
-      }
-  }
-  // public functions
+  // attached to prototype object //
+  // log instance.__proto__ or CircularListClass.prototype
 
   isString(data) {
     return ((typeof data) === 'string');
@@ -210,184 +168,33 @@ class CircularList {
       } while (traversal !== this.getHead() && traversal != null);
   }
 
-}
+  current() {
+    console.log(this.getNow());
+    return this.getNow();
+  }
 
+  setCurrentToHead() {
+      this.setNow(this.getHead());
+      return this.getNow();
+  }
 
+  setCurrentToTail() {
+      this.setNow(this.getTail());
+      return this.getNow();
+  };
 
-/*
-class way
-*/
-
-
-
-// OLD WAY, no good
-/*
-function CircularList() {
-
-    if (new.target === undefined) {
-         console.log('You didnt use new. Giving you a new CircularList Object');
-         return new CircularList();
-    }
-
-    // private member variables
-    var head = null;
-    var tail = null;
-    var now = null;
-
-    // public
-    // O(1)
-    this.current = function() {
-        return now;
-    };
-
-    // public
-    // O(1)
-    this.setCurrentToHead = function() {
-        now = head;
-        return now;
-    };
-
-    // public
-    // O(1)
-    this.setCurrentToTail = function() {
-        now = tail;
-        return now;
-    };
-
-    // public
-    // O(n)
-    this.stepNext = function(steps) {
-        if(!isNaN(steps) && steps > 0) {
-            while (steps > 0) {
-                now = now.next;
-                steps--;
-            }
-        }
-    };
-
-    // public
-    // O(n)
-    this.stepPrev = function(steps) {
-        if(!isNaN(steps) && steps > 0) {
-            while (steps > 0) {
-                now = now.prev;
-                steps--;
-            }
-        }
-    };
-
-    // done
-    // public
-    // O(1)
-    this.insert = function(data) {
-        if (head === null && tail === null) {
-            head = new ListNode(data, null, null);
-            tail = head;
-        } else {
-           tail = new ListNode(data, tail, head);
-           tail.prev.next = tail;
-           head.prev = tail;
-        }
-        now = tail;
-    };
-
-    // public
-    // O(n)
-    this.remove = function(data) {
-        console.log("-- we want to remove {" + data + "} --");
-
-        if (isEmpty()) {
-            console.log("Nothing to remove because list is empty");
+  step(steps, step_ENUM) {
+      if(!isNaN(steps) && steps > 0) {
+        do {
+          let toGoFrame = (step_ENUM === StepEnum.NEXT) ? this.getNow().next : this.getNow().prev;
+          if (toGoFrame) {
+            this.setNow(toGoFrame);
+            steps--;
+          } else {
             return;
-        }
-
-        var traversal = head;
-        if (removeLastNode(traversal)) return;
-        do {
-            if (dataMatches(data.toUpperCase(), traversal.data.toUpperCase())) {
-                if (removeNodeAtHead(traversal)) return;
-                if (removeNodeAtTail(traversal)) return;
-                if (removeNodeInBetween(traversal)) return;
-            }
-            traversal = traversal.next;
-        } while (traversal != head);
-        console.log(data + " cannot be found in our list.");
-    };
-
-    // done
-    // public
-    // O(n)
-    this.print = function() {
-        if (head === null) { console.log("-- LIST IS EMPTY --"); return; }
-
-        var traversal = head;
-        do {
-            traversal.display();
-            traversal = traversal.next;
-        } while (traversal !== head && traversal != null);
-    };
-
-    function isEmpty() {
-        return (head == null && tail == null);
-    }
-
-    // private
-    // O(1)
-    function dataMatches (data1, data2) {
-        return (data1.toUpperCase() === data2.toUpperCase());
-    };
-
-    // private
-    // O(1)
-    function removeLastNode (ref) {
-        if (head === tail) {
-            head = head.next = head.prev = null;
-            tail = tail.next = tail.prev = null;
-            ref.clean();
-            return true;
-        }
-        return false;
-    };
-
-    // private
-    function removeNodeAtHead(ref) {
-      if (ref === head) {
-          var temp = ref;
-          ref.next.prev = tail;
-          ref.prev.next = ref.next;
-          head = ref.next;
-          temp.clean();
-          return true;
+          }
+        } while (steps > 0);
       }
-      return false;
-    }
-
-    // private
-    // O(1)
-    function removeNodeAtTail (ref) {
-      if (ref === tail) {
-          var temp = ref;
-          ref.next.prev = ref.prev;
-          ref.prev.next = ref.next;
-          tail = ref.prev;
-          temp.clean();
-          return true;
-      }
-      return false;
-    }
-
-    // private
-    // O(1)
-    function removeNodeInBetween (ref) {
-        if ((ref !== tail) && (ref !== head)) {
-          console.log("removing node in between");
-          ref.next.prev = ref.prev;
-          ref.prev.next = ref.next;
-          ref.clean();
-          return true;
-        }
-        return false;
-    }
+  }
 
 }
-*/

@@ -1,5 +1,7 @@
 
-var API_URL = "http://128.199.83.231/pictorials/";
+var API_URL = "http://localhost:8080/pictorials/";
+
+//"http://128.199.83.231/pictorials/";
 
 function createElement(tagName, attributesArray, text, childrenToAppend) {
     var element;

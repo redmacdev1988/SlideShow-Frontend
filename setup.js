@@ -15,7 +15,8 @@ function is_cached(src) {
 
 
 function loadImage(timeline) {
-    var img = new Image(), url = timeline.currentFrame().data;
+    var img = new Image();
+    var url = timeline.currentFrame().data;
     img.onload = function() {
         console.log(" image at url loaded into JS Image() object, let's set it to the backgroundImage property.");
         var body = document.getElementsByTagName(BODY_CLASS)[0];
@@ -64,12 +65,14 @@ function setupHashTable(hashTable, dataArray) {
 function setupDownloadLocations(locations, data) {
     for (var imageIndex = 0; imageIndex < data.length; imageIndex++) {
         //var imageFileLocation = "http://128.199.83.231/"+data[imageIndex].fileName;
-        var imageFileLocation = "http://localhost:8080/"+data[imageIndex].fileName;
+        var imageFileLocation =
+        `${G_URL_PROTOCOL}://${G_URL_DOMAIN}/` + data[imageIndex].fileName;
         locations.push(imageFileLocation);
     }
 }
 
 function setupTimeline(timeline, downloadLocations) {
+    console.log(downloadLocations);
     for (var index = 0; index < downloadLocations.length; index++) {
         timeline.insertTimeFrame(downloadLocations[index]);
     }
@@ -95,15 +98,10 @@ function afterDOMisLoaded (downloadLocations, timeline, descHashTable) {
   fetch("http://localhost:8080/pictorials")
     .then((resp) => resp.json()) // Transform the data into json
     .then(function(data) {
-
-      console.log(data);
-
       setupHashTable(descHashTable, data);
       setupDownloadLocations(downloadLocations, data);
       setupTimeline(timeline, downloadLocations);
-
       timeline.setCurrentToFirstFrame();
-
       var carousel = (function() {
         console.log("preloader.js - addEventListener");
         var next = document.querySelector('.next');

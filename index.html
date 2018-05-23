@@ -7,6 +7,8 @@
   <title>Slide Show</title>
   <link rel="stylesheet" type="text/css" href="style.css">
 
+  <script type="text/javascript" src="globals.js"></script>
+
   <script type="text/javascript" src="ListNode.js"></script>
   <script type="text/javascript" src="TimeLiner.js"></script>
   <script type="text/javascript" src="CircularList.js"></script>
@@ -16,20 +18,23 @@
     var gDownloadLocations = [];
     var gTimeline = new TimeLiner();
     var gDescriptionDataHashTable = new HashTable(31);
+
   </script>
 
   <script type="text/javascript" src="setup.js"></script>
   <script type="text/javascript" src="description.js"></script>
 
-
 </head>
 
 <!-- execute a script once a web page has completely loaded all content (including images, script files, CSS files, etc.). -->
 <body class="box" onload="afterDOMisLoaded(gDownloadLocations, gTimeline, gDescriptionDataHashTable)">
+
+<body>
   <div class="ribbon" onclick="toggleImageDescription(gTimeline, gDescriptionDataHashTable, 'imageDescription')"><span>read me</span></div>
   <div id ="imageDescription"></div>
   <a href="#" class="button next"></a>
   <a href="#" class="button prev"></a>
+
 </body>
 
 

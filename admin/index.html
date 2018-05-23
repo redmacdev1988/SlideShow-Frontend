@@ -11,10 +11,9 @@
 
 
   <link rel="stylesheet" type="text/css" href="adminStyle.css">
+
+  <script type="text/javascript" src="../globals.js"></script>
   <script type="text/javascript" src="updatePictorials.js" ></script>
-
-
-
 
   <body>
     <div class="container">
@@ -26,16 +25,14 @@
         <h3>Insert Image into the Gallery</h3>
         <div class="col">
 
-            <input type="file" onchange="onFileSelected(event)" name="imgUploader" id="imgUploader"
-            multiple/>
-            <input type="submit" name="submit" id="btnSubmit" value="Upload"/>
+          <form id="frmUploader"
+                enctype="multipart/form-data"
+                method="POST">
+            <input type="file" name="imgUploader" id="imgUploader" multiple/>
 
+             <input type="submit" name="submit" id="btnSubmit" value="Upload"/>
+          </form>
         </div>
-        <img id="preview" height="300">
-
-        <canvas id="myCanvas" width="880" height="880" style="border:1px solid #d3d3d3;">
-        Your browser does not support the HTML5 canvas tag.
-        </canvas>
 
 
         <div class="col">
@@ -53,43 +50,9 @@
 
 
     <script>
-        function onFileSelected(evt) {
-            console.log("onFileSelected....!");
-
-            var selectedFile = event.target.files[0];
-            var reader = new FileReader();
-
-            var imgtag = document.getElementById("preview");
-            imgtag.title = selectedFile.name;
-
-            reader.onload = function(event) {
-
-              console.dir(imgtag);
-
-              // assign image into myCanvas
-              imgtag.src = event.target.result;
-
-              var c = document.getElementById("myCanvas");
-              var ctx = c.getContext("2d");
-
-              console.log(imgtag);
-
-              // image is at imgtag
-              ctx.drawImage(imgtag, 0, 0);
-
-            };
-
-            reader.readAsDataURL(selectedFile);
-
-
-
-            // create 1 image file from these files.
-            // Then send it to server via 'Upload' button
-        }
-
+    var url = `${G_URL_PROTOCOL}://${G_URL_DOMAIN}/api/Upload`
+    document.getElementById("frmUploader").action = url;
     </script>
-
-
 
   </body>
 </html>

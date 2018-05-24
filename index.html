@@ -30,12 +30,24 @@
 <body class="box" onload="afterDOMisLoaded(gDownloadLocations, gTimeline, gDescriptionDataHashTable)">
 
 <body>
-  <div class="ribbon" onclick="toggleImageDescription(gTimeline, gDescriptionDataHashTable, 'imageDescription')"><span>read me</span></div>
+  <div class="ribbon"
+  onclick="toggleImageDescription(gTimeline, gDescriptionDataHashTable, 'imageDescription', 'main')"><span>read me</span></div>
   <div id ="imageDescription"></div>
   <a href="#" class="button next"></a>
   <a href="#" class="button prev"></a>
 
+  <div id="main">
+    <div id="content" class="margin-center">
+    </div>
+  </div>
+
 </body>
 
+<script>
+var options = { weekday: 'long', month: 'long', day: 'numeric' };
+let d = new Date();
+console.log(d.toLocaleDateString("en-US", options));
+document.getElementById("content").innerHTML = d.toLocaleDateString("en-US", options);
+</script>
 
 </html>

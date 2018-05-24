@@ -29,7 +29,6 @@ function loadImage(timeline) {
                 body.removeChild(loader);
             }, 200);
     };
-    console.log("img.src = " + url);
     img.src = url;
   }
 
@@ -45,7 +44,6 @@ function navigate(direction, timeline) {
         var loader = document.createElement("div");
         loader.id = LOADER_ID;
         document.getElementsByTagName(BODY_CLASS)[0].appendChild(loader);
-        console.log("setup.js - loading the image with loadImage");
         loadImage(timeline);
     } else {
         console.log("setup.js - image already cached...just stick it in the background");
@@ -57,7 +55,6 @@ function navigate(direction, timeline) {
 
 function setupHashTable(hashTable, dataArray) {
     for(var index = 0; index < dataArray.length; index++) {
-        console.log("Inserting into hash table: " + dataArray[index].name);
         hashTable.insert(dataArray[index].name, dataArray[index]);
     }
 }
@@ -72,7 +69,6 @@ function setupDownloadLocations(locations, data) {
 }
 
 function setupTimeline(timeline, downloadLocations) {
-    console.log(downloadLocations);
     for (var index = 0; index < downloadLocations.length; index++) {
         timeline.insertTimeFrame(downloadLocations[index]);
     }
@@ -103,7 +99,6 @@ function afterDOMisLoaded (downloadLocations, timeline, descHashTable) {
       setupTimeline(timeline, downloadLocations);
       timeline.setCurrentToFirstFrame();
       var carousel = (function() {
-        console.log("preloader.js - addEventListener");
         var next = document.querySelector('.next');
         var prev = document.querySelector('.prev');
 

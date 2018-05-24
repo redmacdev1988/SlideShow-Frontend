@@ -136,8 +136,6 @@ class CircularList {
   }
 
   insert(data) {
-    console.log("CircularList - Inserting data: " + data);
-
     try {
       if (!this.isString(data)) throw "Data Must be a String";
       if (this.isEmpty()) {
